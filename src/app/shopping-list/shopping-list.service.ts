@@ -13,16 +13,26 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
-  addIngredient(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
-    this.ingredientChanged.emit(this.ingredients.slice());
+  addIngredient(ingredient: Ingredient, publishChanges = true) {
+    const index = this.ingredients.findIndex(
+      (ing) => ing.name === ingredient.name
+    );
+    if (index === -1) {
+      this.ingredients.push(ingredient);
+    } else {
+      this.ingredients[index].amount += ingredient.amount;
+    }
+    if (publishChanges) {
+      this.ingredientChanged.emit(this.ingredients.slice());
+    }
   }
 
   addIngredients(ingredients: Ingredient[]) {
     // for (let ingredient of ingredients) {
     //   this.addIngredient(ingredient);
     // }
-    this.ingredients.push(...ingredients);
+    // this.ingredients.push(...ingredients);
+    ingredients.forEach((ing) => this.addIngredient(ing, false));
     this.ingredientChanged.emit(this.ingredients.slice());
   }
 }
