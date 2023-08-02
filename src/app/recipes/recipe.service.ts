@@ -10,7 +10,7 @@ export class RecipeService {
   private recipes: Recipe[] = [
     new Recipe(
       'Teriyaki Chicken',
-      'Chicken breast chuncks with a teriyaki sauce served with rice and broccoli.',
+      'Chicken breast chunks with a teriyaki sauce served with rice and broccoli.',
       'https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_center,w_730,h_913/k%2Farchive%2F01410577b65b0fa720ffaf8a514172d4e4c82e4f',
       [
         new Ingredient('Chicken Breast', 6, 'oz'),
