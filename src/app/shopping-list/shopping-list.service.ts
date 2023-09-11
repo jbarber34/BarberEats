@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 export class ShoppingListService {
   ingredientChanged = new Subject<Ingredient[]>();
-
+  startedEditing = new Subject<number>();
   private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10),
@@ -11,6 +11,10 @@ export class ShoppingListService {
 
   getIngredients() {
     return this.ingredients.slice();
+  }
+
+  getIngredient(index: number) {
+    return this.ingredients[index];
   }
 
   addIngredient(ingredient: Ingredient, publishChanges = true) {
@@ -33,6 +37,18 @@ export class ShoppingListService {
     // }
     // this.ingredients.push(...ingredients);
     ingredients.forEach((ing) => this.addIngredient(ing, false));
+    this.ingredientChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
+    this.ingredientChanged.next(this.ingredients.slice());
+  }
+
+  updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    // This would add to what's already listed in ingredients, but not sure that's what I want yet...
+    // this.ingredients[index].amount = this.ingredients[index].amount + newIngredient.amount;
     this.ingredientChanged.next(this.ingredients.slice());
   }
 }
