@@ -4,7 +4,7 @@
       <p>{{ error }}</p>
     </div> -->
     @if(error){
-    <app-alert [message]="error"></app-alert>
+    <app-alert [message]="error" (close)="onHandleError()"></app-alert>
     } @if(isLoading){
     <div *ngIf="isLoading" style="text-align: center">
       <app-loading-spinner> </app-loading-spinner>
